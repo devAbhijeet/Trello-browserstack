@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="src/index.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sort">
+        Sort By Date:
+            <input type="button" class="sortby" value="Sort By Date" style="border:1px solid red;">
+        Priority 0
+        <input type="button" class="prior-1" value="Priority 0" style="border:1px solid red;" data-id="0">
+        Priority 1
+        <input type="button" class="prior-1" value="Priority 1" style="border:1px solid red;" data-id="1">
+        Priority 2
+        <input type="button" class="prior-1" value="Priority 2" style="border:1px solid red;" data-id="2">
+    </div>
+    <div class="trello-board">
+        <div class="pending">
+            <div class="pending-header">
+                Pending
+            </div>
+            <ul class="pending-body"></ul>
+            <div class="pending-footer">
+                <input type="text" class="pendingInputCard" placeholder="Enter pending task">
+                <input type="button" class="pendingInputCardButton" value="CREATE">
+            </div>
+        </div>
+        <div class="done">
+            <div class="done-header">
+                Done
+            </div>
+            <div class="done-body"></div>
+            <div class="done-footer">
+                <input type="text" class="inputCard" placeholder="Enter done task">
+            </div>
+        </div>
+    </div>
+    <script src="dist/bundle.js"></script>
+</body>
+</html>
