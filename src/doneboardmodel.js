@@ -1,11 +1,11 @@
-export default PendingBoardModel
+export default DoneBoardModel
 
 
-function PendingBoardModel(storage) {
+function DoneBoardModel(storage) {
   this.storage = storage
 }
 
-PendingBoardModel.prototype.create = function(title, description, callback) {
+DoneBoardModel.prototype.create = function(title, description, callback) {
   title = title || ''
   description = description || ''
   callback = callback || function() {
@@ -22,26 +22,27 @@ PendingBoardModel.prototype.create = function(title, description, callback) {
   this.storage.save(newItem, callback)
 }
 
-PendingBoardModel.prototype.loadTask = function(callback) {
+DoneBoardModel.prototype.loadTask = function(callback) {
   callback = callback || function() {};
   this.storage.loadTask(callback)
 }
 
 
-PendingBoardModel.prototype.sort = function(sortBy, callback) {
+DoneBoardModel.prototype.sort = function(sortBy, callback) {
   callback = callback || function() {};
   this.storage.sort(sortBy, callback)
 }
 
-PendingBoardModel.prototype.priority = function(priority, callback) {
+DoneBoardModel.prototype.priority = function(priority, callback) {
   callback = callback || function() {};
   this.storage.filter(priority, callback)
 }
 
-PendingBoardModel.prototype.update = function(id, data, callback) {
+
+DoneBoardModel.prototype.update = function(id, data, callback) {
   this.storage.save(data, callback, id)
 }
 
-PendingBoardModel.prototype.remove = function(id, callback) {
+DoneBoardModel.prototype.remove = function(id, callback) {
   this.storage.remove(id, callback)
 }

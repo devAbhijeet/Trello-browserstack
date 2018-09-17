@@ -35,12 +35,6 @@ Store.prototype.find = function(query, callback) {
 }
 
 
-Store.prototype.findAll = function(callback) {
-  callback = callback || function() {
-  }
-  callback.call(this, JSON.parse(localStorage[this._dbName]).todos)
-}
-
 Store.prototype.save = function(updateData, callback, id) {
   var data = JSON.parse(localStorage[this._dbName])
   var cards = data.cards
@@ -76,7 +70,7 @@ Store.prototype.remove = function(id, callback) {
   var cards = data.cards
 
   for (var i = 0; i < cards.length; i++) {
-    if (todos[i].id === id) {
+    if (cards[i].id === id) {
         cards.splice(i, 1)
       break
     }
@@ -86,16 +80,53 @@ Store.prototype.remove = function(id, callback) {
   callback.call(this, JSON.parse(localStorage[this._dbName]).cards)
 }
 
-Store.prototype.sort = function(callback){
+Store.prototype.move = function(id, moveTo, callback) {
+    var that = this;
+    var data = JSON.parse(localStorage[this._dbName])
+    var cards = data.cards
+    var removedCard;
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].id === id) {
+        removedCard = cards.splice(i, 1);
+        localStorage[this._dbName] = JSON.stringify(data);
+        break
+      }
+    }
+
+    if(moveTo=='done'){
+        var data = JSON.parse(localStorage['done']);
+        data.cards = data.cards.concat(removedCard);
+        localStorage['done'] = JSON.stringify(data);
+        callback.call(this, JSON.parse(localStorage['done']).cards)
+    }else{
+        var data = JSON.parse(localStorage['pending']);
+        data.cards = data.cards.concat(removedCard);
+        localStorage['pending'] = JSON.stringify(data);
+        callback.call(this, JSON.parse(localStorage['pending']).cards);
+    }
+    // that.remove(removedCard.id, callback);
+  }
+
+Store.prototype.sort = function(sortBy, callback){
     var data = JSON.parse(localStorage[this._dbName])
     var card = data.cards
 
-    data.cards = card.sort(function(a, b) { 
-        return b.timePass - a.timePass;
-    });
+    if(sortBy=='date'){
+        data.cards = card.sort(function(a, b) { 
+            return b.timePass - a.timePass;
+        });
+    }else{
+        data.cards = card.sort(function(a, b) { 
+            return b.priority - a.priority;
+        });
+    }
 
     localStorage[this._dbName] = JSON.stringify(data)
     callback.call(this, JSON.parse(localStorage[this._dbName]).cards)
+};
+
+Store.prototype.loadTask = function(callback){
+    callback.call(this, JSON.parse(localStorage[this._dbName]).cards);
 };
 
 Store.prototype.filter = function(priority, callback){
@@ -109,8 +140,3 @@ Store.prototype.filter = function(priority, callback){
     localStorage[this._dbName] = JSON.stringify(data)
     callback.call(this, JSON.parse(localStorage[this._dbName]).cards)
 };
-
-Store.prototype.drop = function(callback) {
-  localStorage[this._dbName] = JSON.stringify({todos: []})
-  callback.call(this, JSON.parse(localStorage[this._dbName]).todos)
-}

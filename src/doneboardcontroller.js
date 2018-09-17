@@ -1,6 +1,6 @@
-export default PendingBoardController
+export default DoneBoardController
 
-function PendingBoardController(model, view) {
+function DoneBoardController(model, view) {
   var that = this
   that.model = model
   that.view = view
@@ -35,28 +35,28 @@ function PendingBoardController(model, view) {
   })
 }
 
-PendingBoardController.prototype.loadTask = function(){
+DoneBoardController.prototype.loadTask = function(){
   var that = this;
   that.model.loadTask(function() {
     that.view.render('showEntries');
   })
 };
 
-PendingBoardController.prototype.sort = function(sortBy){
+DoneBoardController.prototype.sort = function(sortBy){
   var that = this;
   that.model.sort(sortBy, function() {
     that.view.render('showEntries');
   })
 };
 
-PendingBoardController.prototype.priority = function(priority){
+DoneBoardController.prototype.priority = function(priority){
   var that = this;
   that.model.priority(priority, function() {
     that.view.render('showEntries');
   })
 };
 
-PendingBoardController.prototype.addItem = function(title, description) {
+DoneBoardController.prototype.addItem = function(title, description) {
   var that = this
 
   if (title.trim() === '') {
@@ -72,14 +72,4 @@ PendingBoardController.prototype.addItem = function(title, description) {
     that.view.render('showEntries');
     // that._filter(true)
   })
-}
-
-
-PendingBoardController.prototype.removeItem = function(id) {
-  var that = this
-  that.model.remove(id, function() {
-    that.view.render('removeItem', id)
-  })
-
-  that._filter()
 }

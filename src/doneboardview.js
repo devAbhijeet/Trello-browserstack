@@ -1,25 +1,25 @@
 import {qs, qsa, $on, $parent} from './helpers'
 
-export default class PendingBoardView {
+export default class DoneBoardView {
   constructor(storage) {
     var pendingConst = this;
     this.storage = storage;
     this.pedingTask = JSON.parse(localStorage['pending']);    
-    this.$taskList = qs('.pending-body')
-    this.$newTask = qs('.pendingInputCard')
-    this.$newTaskButton = qs('.pendingInputCardButton')
-    this.$sortby = qs('#sortby');
-    this.$prior = qs('#priority');
+    this.$taskList = qs('.done-body')
+    this.$newTask = qs('.doneInputCard')
+    this.$newTaskButton = qs('.doneInputCardButton')
+    this.$sortby = qs('#done-sortby');
+    this.$prior = qs('#done-priority');
     
-    window.removePending = function(e){
-      pendingConst.storage.remove(window.removePendingButtonId, function(){
+    window.removeDone = function(e){
+      pendingConst.storage.remove(window.removeDonebuttonId, function(){
         pendingConst.render('showEntries');
         window.buttonId = null;
       });
     };
 
-    window.movePending = function(e){
-      pendingConst.storage.move(window.movePendingbuttonId, 'done', function(){
+    window.moveDone = function(e){
+      pendingConst.storage.move(window.moveDoneButtonId, 'pending', function(){
         pendingConst.render('showEntries');
         window.buttonId = null;
       });
@@ -30,14 +30,14 @@ export default class PendingBoardView {
     var that = this
     var viewCommands = {
       showEntries: function() {
-        that.$taskList.innerHTML = JSON.parse(localStorage['pending']).cards.map(function(card){
+        that.$taskList.innerHTML = JSON.parse(localStorage['done']).cards.map(function(card){
           return `<li>
             <div>Title: ${card.title}</div>
             <div>Description: ${card.description}</div>
             <div>Time: ${card.time}</div>
             <div>Priority: ${card.priority}</div>
-            <button class="removePending" id="${card.id}" onclick="window.removePendingButtonId = ${card.id}; removePending(this)">Remove</button>
-            <button class="movePending" id="${card.id}" onclick="window.movePendingbuttonId = ${card.id}; movePending(this)">Move to Done</button>
+            <button class="removeDone" id="${card.id}" onclick="window.removeDonebuttonId = ${card.id}; removeDone(this)">Remove</button>
+            <button class="moveDone" id="${card.id}" onclick="window.moveDoneButtonId = ${card.id}; moveDone(this)">Move to Pending</button>
           </li>`
         }).join("");
       },
@@ -73,14 +73,12 @@ export default class PendingBoardView {
 
     } else if (event === 'itemEdit') {
 
-    }
-    else if (event === 'sortBy') {
+    } else if (event === 'sortBy') {
       $on(that.$sortby, 'change', function() {
         handler(that.$prior.options[that.$prior.selectedIndex].value)
       })
 
-    }
-    else if (event === 'priority') {
+    } else if (event === 'priority') {
       $on(that.$prior, 'change', function(e) {
         handler(that.$prior.options[that.$prior.selectedIndex].value)
       })

@@ -32,16 +32,21 @@
     padding: 5px;
 }
 
-.pending-footer{
+.pending-footer, .done-footer{
     position: absolute;
     bottom: 0;
     width: 100%;
 }
 
-.pending-footer input, .pending-footer button {
+.pending-footer input, .pending-footer button, .done-footer input, .done-footer button {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc8c8;
+}
+
+.pending-body, .done-body{
+    overflow-y: scroll;
+    height: 76vh;
 }
 
 ul{
@@ -54,4 +59,33 @@ li{
     margin-top: 5px;
     margin-bottom: 5px;
     border-bottom: 1px solid #efefef;
+}
+
+.removePending, .movePending, .moveDone, .removeDone{
+    border: 1px solid #b9b5b5;
+    padding: 5px;
+}
+
+.pending-sort{
+    position: absolute;
+    top: 10px;
+    border: 2px solid #efefef;
+    border-radius: 5px;
+    padding: 5px;
+    left: 10px;
+}
+
+.done-sort{
+    position: absolute;
+    top: 10px;
+    border: 2px solid #efefef;
+    border-radius: 5px;
+    padding: 5px;
+    right: 10px;
+}
+
+.pending-filter-head, .done-filter-head{
+    margin-bottom: 5px;
+    background: #efefef;
+    padding: 5px;
 }

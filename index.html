@@ -8,16 +8,56 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="sort">
-        Sort By Date:
-            <input type="button" class="sortby" value="Sort By Date" style="border:1px solid red;">
-        Priority 0
-        <input type="button" class="prior-1" value="Priority 0" style="border:1px solid red;" data-id="0">
-        Priority 1
-        <input type="button" class="prior-1" value="Priority 1" style="border:1px solid red;" data-id="1">
-        Priority 2
-        <input type="button" class="prior-1" value="Priority 2" style="border:1px solid red;" data-id="2">
+    <div class="pending-sort">
+        <div class="pending-filter-head">Pending Filter</div>
+        <div>
+            <span>
+                Sort By:
+            </span>
+            <select name="priority" id="sortby">
+                <option value="date">Date</option>
+                <option value="priority">Priority</option>
+            </select>
+        </div>
+        <div style="margin-top: 5px;">
+            <span>
+                Priority
+            </span>
+            <select name="priority" id="priority">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
     </div>
+    <div class="done-sort">
+            <div class="done-filter-head">Done Filter</div>
+            <div>
+                <span>
+                    Sort By:
+                </span>
+                <select name="done" id="done-sortby">
+                    <option value="date">Date</option>
+                    <option value="priority">Priority</option>
+                </select>
+            </div>
+            <div style="margin-top: 5px;">
+                <span>
+                    Priority
+                </span>
+                <select name="done" id="done-priority">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
     <div class="trello-board">
         <div class="pending">
             <div class="pending-header">
@@ -33,9 +73,10 @@
             <div class="done-header">
                 Done
             </div>
-            <div class="done-body"></div>
+            <ul class="done-body"></ul>
             <div class="done-footer">
-                <input type="text" class="inputCard" placeholder="Enter done task">
+                <input type="text" class="doneInputCard" placeholder="Enter done task">
+                <input type="button" class="doneInputCardButton" value="CREATE">
             </div>
         </div>
     </div>
